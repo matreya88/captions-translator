@@ -3,7 +3,7 @@ import os
 
 ##### changeble vars ####################################
 
-file_to_translate = "hakodate caps.sbv"
+file_to_translate = "files_translations/hakodate caps.sbv"
 
 ##### STATIC ##########################################
 api_domain = "api-free.deepl.com"
