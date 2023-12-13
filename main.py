@@ -1,15 +1,15 @@
 import requests
 import os
 
-##### changeble vars ####################################
+# ######### variable to update ####################################
+file_to_translate = "files_translations/captions.sbv"  # change this to your sbv file path
 
-file_to_translate = "files_translations/hakodate caps.sbv"
 
-##### STATIC ##########################################
+# ################# STATIC ##########################################
 api_domain = "api-free.deepl.com"
 deepl_api_key = os.environ["DEEPL_API_KEY"]
 url = "https://api-free.deepl.com/v2/translate"
-#####################################################
+####################################################################
 
 
 def make_translations():
@@ -21,7 +21,7 @@ def make_translations():
         'Content-Type': 'application/json',
     }
 
-    #### italian translation request #################
+    # ########## italian translation request #################
     parameters = {
         "text": [text_to_translate],
         "target_lang": "IT"
@@ -29,10 +29,10 @@ def make_translations():
     response = requests.post(url, json=parameters, headers=headers)
     result = response.json()
     translated_text = result["translations"][0]["text"]
-    with open(f"{file_to_translate}_ita", "w") as fil:
+    with open(f"{file_to_translate}_ita", "w", encoding="utf-8") as fil:
         fil.write(translated_text)
 
-    ######### japanese translation request #################
+    # ########## japanese translation request #################
     parameters = {
         "text": [text_to_translate],
         "target_lang": "JA"
@@ -42,7 +42,29 @@ def make_translations():
     translated_text = result["translations"][0]["text"]
     with open(f"{file_to_translate}_jap", "w", encoding="utf-8") as fil:
         fil.write(translated_text)
-    ######## end translations section ###########################
+
+    # ########### spanish translation request #################
+    parameters = {
+        "text": [text_to_translate],
+        "target_lang": "ES"
+    }
+    response = requests.post(url, json=parameters, headers=headers)
+    result = response.json()
+    translated_text = result["translations"][0]["text"]
+    with open(f"{file_to_translate}_spanish", "w", encoding="utf-8") as fil:
+        fil.write(translated_text)
+
+    # ########## chinese translation request #################
+    parameters = {
+        "text": [text_to_translate],
+        "target_lang": "ZH"
+    }
+    response = requests.post(url, json=parameters, headers=headers)
+    result = response.json()
+    translated_text = result["translations"][0]["text"]
+    with open(f"{file_to_translate}_chinese", "w", encoding="utf-8") as fil:
+        fil.write(translated_text)
+    # ####### end of translations section ###########################
 
     print("all translations complete.")
 
